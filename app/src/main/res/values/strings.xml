@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Colloquium1</string>
+    <string name="update">Update</string>
+    <string name="rub">RUB</string>
 </resources>
