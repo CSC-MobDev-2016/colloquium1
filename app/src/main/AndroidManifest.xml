@@ -1,13 +1,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.csc.colloquium1">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="com.csc.shmakov.currency_converter.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="com.csc.shmakov.currency_converter.contentprovider.CurrencyContentProvider"
+            android:authorities="com.csc.shmakov.currency"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name="com.csc.shmakov.currency_converter.activity.CalcActivity"/>
     </application>
 
 </manifest>
