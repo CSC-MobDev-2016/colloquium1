@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Colloquium1</string>
+    <string name="app_name">Currency Converter</string>
+    <string name="rubExchangeRate" translatable="false">http://rub.fxexchangerate.com/rss.xml</string>
+    <string name="datetimeFormat" translatable="false">yyyy-MM-dd HH:mm</string>
 </resources>
