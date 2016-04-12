@@ -29,36 +29,38 @@ class RSSParserTask extends AsyncTask<String, Void, List<Card>> {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(false);
             XmlPullParser parser = factory.newPullParser();
-            parser.setInput(url.openStream(), "UTF_8");
+            parser.setInput(url.openStream(), "Windows-1251");
 
             cards = new ArrayList<>();
-            Card card = null;
+            boolean started = false;
+            String info = null;
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
                     String name = parser.getName().toLowerCase();
                     switch (name) {
                         case "item":
-                            card = new Card();
+                            started = true;
                             break;
                         case "description":
-                            if (card != null) {
-                                card.setTitle(parser.nextText());
-                                card.setValue("");
+                            if (started) {
+                                info = parser.nextText();
                             }
                             break;
                     }
                 } else if (eventType == XmlPullParser.END_TAG && parser.getName().equalsIgnoreCase("item")) {
-                    if (card != null) {
-                        cards.add(card.clone());
-                        card = null;
+                    started = false;
+                    String[] strings = info.split("<br>");
+                    for (String string : strings) {
+                        String[] values = string.split("-");
+                        cards.add(new Card(values[0].trim(), values[1].trim()));
                     }
                 }
 
                 eventType = parser.next(); //move to next element
             }
 
-        } catch (XmlPullParserException | IOException | CloneNotSupportedException e) {
+        } catch (XmlPullParserException | IOException e) {
             Log.e(TAG, "doInBackground: ", e);
         }
 

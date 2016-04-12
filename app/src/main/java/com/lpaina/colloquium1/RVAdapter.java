@@ -38,13 +38,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardViewHolder> {
     @Override
     public void onBindViewHolder(CardViewHolder cardViewHolder, int i) {
         if (cursor.moveToPosition(i)) {
-            cardViewHolder.title = cursor.getString(cursor.getColumnIndex(FeedsTable.COLUMN_TITLE));
-            cardViewHolder.value = cursor.getString(cursor.getColumnIndex(FeedsTable.COLUMN_VALUE));
+            cardViewHolder.title = cursor.getString(cursor.getColumnIndex(Card.TITLE_NAME));
+            cardViewHolder.value = cursor.getString(cursor.getColumnIndex(Card.VALUE_NAME));
 
             cardViewHolder.textViewTitle.setText(cardViewHolder.title);
             cardViewHolder.textViewValue.setText(cardViewHolder.value);
 
-            cardViewHolder.id = cursor.getInt(cursor.getColumnIndex(FeedsTable._ID));
         }
     }
 
