@@ -18,12 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name=".ReaderContentProvider"
             android:authorities="com.lpaina.colloquium1"
             android:enabled="true"
             android:exported="false"
             tools:ignore="ExportedContentProvider" />
+
+        <activity android:name=".ChangeActivity"></activity>
     </application>
 
 </manifest>

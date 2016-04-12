@@ -10,6 +10,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import hugo.weaving.DebugLog;
@@ -64,6 +66,12 @@ class RSSParserTask extends AsyncTask<String, Void, List<Card>> {
             Log.e(TAG, "doInBackground: ", e);
         }
 
+        Collections.sort(cards, new Comparator<Card>() {
+            @Override
+            public int compare(Card lhs, Card rhs) {
+                return lhs.getTitle().compareTo(rhs.getTitle());
+            }
+        });
         return cards;
     }
 

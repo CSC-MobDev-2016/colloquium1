@@ -1,6 +1,7 @@
 package com.lpaina.colloquium1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -48,6 +49,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardViewHolder> {
     }
 
     public static class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public static final String TITLE = "title";
+        public static final String VALUE = "value";
+
 
         final TextView textViewTitle;
         final TextView textViewValue;
@@ -70,7 +74,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardViewHolder> {
 
         @Override
         public void onClick(View v) {
-
+            Intent intent = new Intent(context, ChangeActivity.class);
+            intent.putExtra(TITLE, title);
+            intent.putExtra(VALUE, value);
+            context.startActivity(intent);
         }
 
     }
