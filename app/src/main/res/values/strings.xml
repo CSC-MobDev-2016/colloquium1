@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Colloquium1</string>
+    <string name="app_name">TaskList</string>
+    <string name="add_task">Add task</string>
+    <string name="header">Header</string>
+    <string name="body">Body</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="header_alert">Add Task</string>
+    <string name="remove">Remove</string>
+    <string name="updated">Updated:</string>
 </resources>
