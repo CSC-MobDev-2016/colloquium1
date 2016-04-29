@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Converter</string>
     <string name="refresh">Refresh</string>
+    <string name="arrow">➤</string>
+    <string name="ready">Return to list</string>
+    <string name="calc">OK</string>
 </resources>

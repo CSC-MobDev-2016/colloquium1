@@ -18,6 +18,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".CalcActivity" />
+
+        <provider
+            android:name=".database.MyContentProvider"
+            android:authorities="com.csc.telezhnaya.currency"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
 </manifest>

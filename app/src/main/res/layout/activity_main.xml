@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onRefreshClick"
-        android:text="@string/refresh" />
-
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
