@@ -2,6 +2,7 @@ package com.csc.telezhnaya.currency;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import com.csc.telezhnaya.currency.database.CurrencyTable;
@@ -11,10 +12,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CurrencyUpdateTask extends AsyncTask<String, Void, HashMap<String, Double>> {
+public class CurrencyUpdateTask extends AsyncTask<SharedPreferences, Void, HashMap<String, Double>> {
     private ContentResolver resolver;
 
     CurrencyUpdateTask(ContentResolver resolver) {
@@ -22,7 +24,7 @@ public class CurrencyUpdateTask extends AsyncTask<String, Void, HashMap<String, 
     }
 
     @Override
-    protected HashMap<String, Double> doInBackground(String... params) {
+    protected HashMap<String, Double> doInBackground(SharedPreferences... preferences) {
         StringBuilder json = new StringBuilder();
         try {
             URL url = new URL("http://api.fixer.io/latest?base=RUB");
@@ -39,6 +41,10 @@ public class CurrencyUpdateTask extends AsyncTask<String, Void, HashMap<String, 
             } while (next != null);
 
             reader.close();
+
+            SharedPreferences.Editor editor = preferences[0].edit();
+            editor.putLong(MainActivity.LAST_UPDATE, Calendar.getInstance().getTimeInMillis());
+            editor.apply();
         } catch (Exception e) {
             e.printStackTrace();
             return new HashMap<>();

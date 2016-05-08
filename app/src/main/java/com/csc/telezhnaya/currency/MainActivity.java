@@ -2,6 +2,7 @@ package com.csc.telezhnaya.currency;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,11 +23,16 @@ import android.widget.TextView;
 import com.csc.telezhnaya.currency.database.CurrencyTable;
 import com.csc.telezhnaya.currency.database.MyContentProvider;
 
+import java.util.Date;
+
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final Uri ENTRIES_URI = Uri.withAppendedPath(MyContentProvider.CONTENT_URI, "entries");
     public static final String DB_ORDER = CurrencyTable.COLUMN_CURRENCY_NAME;
     private CursorAdapter adapter;
+    private SharedPreferences preferences;
+
+    public static final String LAST_UPDATE = "LAST_UPDATE";
 
     public static final String URL_NAME = "NAME";
     public static final String URL_CURRENCY = "CURRENCY";
@@ -37,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            new CurrencyUpdateTask(getContentResolver()).execute();
+            preferences = getSharedPreferences("currency", Context.MODE_PRIVATE);
+            updateData();
 
             ListView listTasks = (ListView) findViewById(R.id.list);
             adapter = new CursorAdapter(this, null, 0) {
@@ -62,6 +69,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
+    private void updateData() {
+        new CurrencyUpdateTask(getContentResolver()).execute(preferences);
+        if (preferences.contains(LAST_UPDATE)) {
+            TextView lastUpdate = (TextView) findViewById(R.id.last_update);
+            Date date = new Date(preferences.getLong(LAST_UPDATE, 0));
+            lastUpdate.setText(date.toString());
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -78,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        new CurrencyUpdateTask(getContentResolver()).execute();
+        updateData();
         return true;
     }
 
